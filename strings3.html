@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Message Access</title>
+    <!-- Onisio Thomas -->
+    
+    <!-- Link to Google Fonts for custom font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    
+    <!-- Add custom CSS styles -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #444444;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            font-family: "Indie Flower", cursive;
+            font-size: 5.2em;
+            color: #8646b4;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input {
+            font-family: "Indie Flower", cursive;
+            font-size: 1.2em;
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+        }
+        #result, #secretMessage {
+            font-family: "Indie Flower", cursive;
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: white;
+        }
+        button {
+            font-family: "Indie Flower", cursive;
+            font-size: 2.2em;
+            background-color: #000000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            font-family: "Indie Flower", cursive;
+            background-color: #8646b4;
+        }
+    </style>
+</head>
+<body>
+    <h1>Secret Message Access</h1>
+    
+    <!-- Form to collect user input -->
+    <form id="accessForm">
+        <!-- Input for first name -->
+        <input type="text" id="firstName" placeholder="First Name" required>
+        <!-- Input for last name -->
+        <input type="text" id="lastName" placeholder="Last Name" required>
+        <!-- Input for zip code -->
+        <input type="text" id="zipCode" placeholder="Zip Code" required>
+        <!-- Submit button -->
+        <button type="submit">Submit</button>
+    </form>
+    
+    <!-- Div to display result of validation -->
+    <div id="result"></div>
+    <!-- Div to display the secret message -->
+    <div id="secretMessage" style="display: none;">Congratulations! Here is the secret message: "The treasure is buried under the old oak tree."</div>
+
+    <!-- JavaScript to handle the validation and display secret message -->
+    <script>
+        // Function to validate user input and show the secret message if valid
+        document.getElementById('accessForm').addEventListener('submit', function(event) {
+            // Prevent the form from submitting the traditional way
+            event.preventDefault();
+
+            // Get values from the input fields
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const zipCode = document.getElementById('zipCode').value.trim();
+            const fullName = firstName + ' ' + lastName;
+
+            // Validate full name length
+            if (fullName.length > 20) {
+                document.getElementById('result').innerText = "Full name must be 20 characters or less.";
+                return; // Exit function if invalid
+            }
+
+            // Validate zip code (must be exactly 5 digits)
+            if (!/^\d{5}$/.test(zipCode)) {
+                document.getElementById('result').innerText = "Zip code must be exactly 5 digits.";
+                return; // Exit function if invalid
+            }
+
+            // If inputs are valid, clear the result message
+            document.getElementById('result').innerText = "";
+
+            // Show the secret message
+            document.getElementById('secretMessage').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
